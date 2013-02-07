@@ -1,0 +1,489 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSources>
+    <DataSource Name="PenilaianPegawaiConnectionString">
+      <rd:DataSourceID>96df2777-eafe-4246-9816-9ce57fa967d3</rd:DataSourceID>
+      <ConnectionProperties>
+        <DataProvider>
+        </DataProvider>
+        <ConnectString>
+        </ConnectString>
+      </ConnectionProperties>
+    </DataSource>
+  </DataSources>
+  <InteractiveHeight>11in</InteractiveHeight>
+  <rd:DrawGrid>true</rd:DrawGrid>
+  <InteractiveWidth>8.5in</InteractiveWidth>
+  <rd:SnapToGrid>true</rd:SnapToGrid>
+  <RightMargin>1in</RightMargin>
+  <LeftMargin>1in</LeftMargin>
+  <BottomMargin>1in</BottomMargin>
+  <rd:ReportID>1b906e7c-4577-43c9-8855-257f51266b51</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_LaporanKapabil">
+      <Fields>
+        <Field Name="NIK">
+          <DataField>NIK</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="nama_unit_kerja">
+          <DataField>nama unit kerja</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="nama_komponen">
+          <DataField>nama komponen</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="nilai">
+          <DataField>nilai</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="bulan">
+          <DataField>bulan</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="tahun">
+          <DataField>tahun</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Nama">
+          <DataField>Nama</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>PenilaianPegawaiConnectionString</DataSourceName>
+        <CommandText>SELECT        Pegawai.NIK, [Unit Kerja].[nama unit kerja], [Komponen Kapabil].[nama komponen], Kapabilitas.nilai, Kapabilitas.bulan, Kapabilitas.tahun, 
+                         Pegawai.Nama
+FROM            (((Pegawai INNER JOIN
+                         [Unit Kerja] ON Pegawai.idunitkerja = [Unit Kerja].idunitkerja) INNER JOIN
+                         Kapabilitas ON Pegawai.NIK = Kapabilitas.NIK) INNER JOIN
+                         [Komponen Kapabil] ON Kapabilitas.idkomponenkapabilitas = [Komponen Kapabil].idkomponenkapabilitas)
+WHERE        (Kapabilitas.bulan = ?) AND (Kapabilitas.tahun = ?) AND ([Unit Kerja].[nama unit kerja] = ?)</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <rd:DataSetInfo>
+        <rd:DataSetName>DataSet</rd:DataSetName>
+        <rd:TableName>LaporanKapabil</rd:TableName>
+        <rd:TableAdapterName>LaporanKapabilTableAdapter</rd:TableAdapterName>
+        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
+        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
+      </rd:DataSetInfo>
+    </DataSet>
+  </DataSets>
+  <Width>8.875in</Width>
+  <Body>
+    <ReportItems>
+      <Textbox Name="textbox10">
+        <Top>1.26984cm</Top>
+        <Width>3.49206cm</Width>
+        <Style>
+          <FontSize>11pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>3</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>9.52381cm</Left>
+        <Height>0.63492cm</Height>
+        <Value>Tanggal Cetak :</Value>
+      </Textbox>
+      <Textbox Name="textbox8">
+        <Top>1.26984cm</Top>
+        <Width>4.7619cm</Width>
+        <Style>
+          <FontFamily>Tahoma</FontFamily>
+          <FontSize>11pt</FontSize>
+          <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>2</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>12.38095cm</Left>
+        <Height>0.24in</Height>
+        <Value>=Globals!ExecutionTime</Value>
+      </Textbox>
+      <Textbox Name="textbox1">
+        <rd:DefaultName>textbox1</rd:DefaultName>
+        <Top>0.31746cm</Top>
+        <Width>20.63492cm</Width>
+        <Style>
+          <Color>SteelBlue</Color>
+          <FontFamily>Tahoma</FontFamily>
+          <FontSize>20pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Left</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>1</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>1.26984cm</Left>
+        <Height>0.375in</Height>
+        <Value>Laporan Kapabilitas Pegawai Non Akademik</Value>
+      </Textbox>
+      <List Name="List1">
+        <Sorting>
+          <SortBy>
+            <SortExpression>=Fields!NIK.Value</SortExpression>
+            <Direction>Ascending</Direction>
+          </SortBy>
+        </Sorting>
+        <DataSetName>DataSet_LaporanKapabil</DataSetName>
+        <ReportItems>
+          <Textbox Name="textbox7">
+            <Top>1.5873cm</Top>
+            <Width>3.49206cm</Width>
+            <Style>
+              <FontSize>12pt</FontSize>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+            <ZIndex>3</ZIndex>
+            <CanGrow>true</CanGrow>
+            <Left>1.26984cm</Left>
+            <Height>0.63492cm</Height>
+            <Value>UNIT KERJA   :</Value>
+          </Textbox>
+          <Textbox Name="textbox5">
+            <Top>0.95238cm</Top>
+            <Width>3.49206cm</Width>
+            <Style>
+              <FontSize>12pt</FontSize>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+            <ZIndex>2</ZIndex>
+            <CanGrow>true</CanGrow>
+            <Left>1.26984cm</Left>
+            <Height>0.63492cm</Height>
+            <Value>NAMA              :</Value>
+          </Textbox>
+          <Textbox Name="NIK">
+            <rd:DefaultName>NIK</rd:DefaultName>
+            <Top>0.31746cm</Top>
+            <Width>5.39683cm</Width>
+            <Style>
+              <Color>SlateGray</Color>
+              <FontFamily>Tahoma</FontFamily>
+              <FontSize>14pt</FontSize>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+            <ZIndex>1</ZIndex>
+            <CanGrow>true</CanGrow>
+            <Left>4.44444cm</Left>
+            <Height>0.27in</Height>
+            <Value>=Fields!NIK.Value</Value>
+          </Textbox>
+          <List Name="List2">
+            <Sorting>
+              <SortBy>
+                <SortExpression>=Fields!Nama.Value</SortExpression>
+                <Direction>Ascending</Direction>
+              </SortBy>
+            </Sorting>
+            <DataSetName>DataSet_LaporanKapabil</DataSetName>
+            <ReportItems>
+              <Textbox Name="textbox13">
+                <Top>1.26984cm</Top>
+                <Width>3.80952cm</Width>
+                <Style>
+                  <FontFamily>Tahoma</FontFamily>
+                  <FontSize>12pt</FontSize>
+                  <TextAlign>Left</TextAlign>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+                <ZIndex>7</ZIndex>
+                <CanGrow>true</CanGrow>
+                <Left>13.33333cm</Left>
+                <Height>0.24in</Height>
+                <Value>=Fields!tahun.Value</Value>
+              </Textbox>
+              <Textbox Name="textbox14">
+                <Top>1.26984cm</Top>
+                <Width>3.49206cm</Width>
+                <Style>
+                  <FontSize>12pt</FontSize>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+                <ZIndex>6</ZIndex>
+                <CanGrow>true</CanGrow>
+                <Left>11.42857cm</Left>
+                <Height>0.63492cm</Height>
+                <Value>TAHUN :</Value>
+              </Textbox>
+              <Textbox Name="textbox11">
+                <Top>0.63492cm</Top>
+                <Width>3.80952cm</Width>
+                <Style>
+                  <FontFamily>Tahoma</FontFamily>
+                  <FontSize>12pt</FontSize>
+                  <TextAlign>Left</TextAlign>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+                <ZIndex>5</ZIndex>
+                <CanGrow>true</CanGrow>
+                <Left>13.33333cm</Left>
+                <Height>0.24in</Height>
+                <Value>=Fields!bulan.Value</Value>
+              </Textbox>
+              <Textbox Name="textbox12">
+                <Top>0.63492cm</Top>
+                <Width>3.49206cm</Width>
+                <Style>
+                  <FontSize>12pt</FontSize>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+                <ZIndex>4</ZIndex>
+                <CanGrow>true</CanGrow>
+                <Left>11.42857cm</Left>
+                <Height>0.63492cm</Height>
+                <Value>BULAN :</Value>
+              </Textbox>
+              <Textbox Name="textbox4">
+                <rd:DefaultName>textbox4</rd:DefaultName>
+                <Width>3.49206cm</Width>
+                <Style>
+                  <FontSize>12pt</FontSize>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+                <ZIndex>3</ZIndex>
+                <CanGrow>true</CanGrow>
+                <Left>1.26984cm</Left>
+                <Height>0.63492cm</Height>
+                <Value>NIK                   :</Value>
+              </Textbox>
+              <Textbox Name="textbox9">
+                <Top>1.26984cm</Top>
+                <Width>6.03175cm</Width>
+                <Style>
+                  <FontFamily>Tahoma</FontFamily>
+                  <FontSize>12pt</FontSize>
+                  <TextAlign>Left</TextAlign>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+                <ZIndex>2</ZIndex>
+                <CanGrow>true</CanGrow>
+                <Left>4.44444cm</Left>
+                <Height>0.24in</Height>
+                <Value>=Fields!nama_unit_kerja.Value</Value>
+              </Textbox>
+              <Textbox Name="Nama">
+                <rd:DefaultName>Nama</rd:DefaultName>
+                <Top>0.63492cm</Top>
+                <Width>6.03175cm</Width>
+                <Style>
+                  <FontFamily>Tahoma</FontFamily>
+                  <FontSize>12pt</FontSize>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+                <ZIndex>1</ZIndex>
+                <CanGrow>true</CanGrow>
+                <Left>4.44444cm</Left>
+                <Height>0.24in</Height>
+                <Value>=Fields!Nama.Value</Value>
+              </Textbox>
+              <Table Name="table1">
+                <DataSetName>DataSet_LaporanKapabil</DataSetName>
+                <Top>0.875in</Top>
+                <Width>6.25in</Width>
+                <Details>
+                  <TableRows>
+                    <TableRow>
+                      <TableCells>
+                        <TableCell>
+                          <ReportItems>
+                            <Textbox Name="nama_komponen">
+                              <rd:DefaultName>nama_komponen</rd:DefaultName>
+                              <Style>
+                                <BorderColor>
+                                  <Default>LightGrey</Default>
+                                </BorderColor>
+                                <BorderStyle>
+                                  <Default>Solid</Default>
+                                </BorderStyle>
+                                <FontFamily>Tahoma</FontFamily>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                              <ZIndex>1</ZIndex>
+                              <CanGrow>true</CanGrow>
+                              <Value>=Fields!nama_komponen.Value</Value>
+                            </Textbox>
+                          </ReportItems>
+                        </TableCell>
+                        <TableCell>
+                          <ReportItems>
+                            <Textbox Name="textbox6">
+                              <Style>
+                                <BorderColor>
+                                  <Default>LightGrey</Default>
+                                </BorderColor>
+                                <BorderStyle>
+                                  <Default>Solid</Default>
+                                </BorderStyle>
+                                <FontFamily>Tahoma</FontFamily>
+                                <TextAlign>Center</TextAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                              <CanGrow>true</CanGrow>
+                              <Value>=Fields!nilai.Value</Value>
+                            </Textbox>
+                          </ReportItems>
+                        </TableCell>
+                      </TableCells>
+                      <Height>0.21in</Height>
+                    </TableRow>
+                  </TableRows>
+                </Details>
+                <Header>
+                  <TableRows>
+                    <TableRow>
+                      <TableCells>
+                        <TableCell>
+                          <ReportItems>
+                            <Textbox Name="textbox2">
+                              <rd:DefaultName>textbox2</rd:DefaultName>
+                              <Style>
+                                <Color>White</Color>
+                                <BackgroundColor>SteelBlue</BackgroundColor>
+                                <BorderColor>
+                                  <Default>LightGrey</Default>
+                                </BorderColor>
+                                <BorderStyle>
+                                  <Default>Solid</Default>
+                                </BorderStyle>
+                                <FontFamily>Tahoma</FontFamily>
+                                <FontSize>11pt</FontSize>
+                                <FontWeight>700</FontWeight>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                              <ZIndex>3</ZIndex>
+                              <CanGrow>true</CanGrow>
+                              <Value>NAMA KOMPONEN KAPABILITAS</Value>
+                            </Textbox>
+                          </ReportItems>
+                        </TableCell>
+                        <TableCell>
+                          <ReportItems>
+                            <Textbox Name="textbox3">
+                              <rd:DefaultName>textbox3</rd:DefaultName>
+                              <Style>
+                                <Color>White</Color>
+                                <BackgroundColor>SteelBlue</BackgroundColor>
+                                <BorderColor>
+                                  <Default>LightGrey</Default>
+                                </BorderColor>
+                                <BorderStyle>
+                                  <Default>Solid</Default>
+                                </BorderStyle>
+                                <FontFamily>Tahoma</FontFamily>
+                                <FontSize>11pt</FontSize>
+                                <FontWeight>700</FontWeight>
+                                <TextAlign>Center</TextAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                              <ZIndex>2</ZIndex>
+                              <CanGrow>true</CanGrow>
+                              <Value>NILAI</Value>
+                            </Textbox>
+                          </ReportItems>
+                        </TableCell>
+                      </TableCells>
+                      <Height>0.22in</Height>
+                    </TableRow>
+                  </TableRows>
+                  <RepeatOnNewPage>true</RepeatOnNewPage>
+                </Header>
+                <TableColumns>
+                  <TableColumn>
+                    <Width>4in</Width>
+                  </TableColumn>
+                  <TableColumn>
+                    <Width>2.25in</Width>
+                  </TableColumn>
+                </TableColumns>
+                <Height>1.09206cm</Height>
+                <Left>1.26984cm</Left>
+              </Table>
+            </ReportItems>
+            <Top>0.125in</Top>
+            <Style>
+              <FontFamily>Tahoma</FontFamily>
+              <FontSize>12pt</FontSize>
+            </Style>
+            <Grouping Name="list1_Nama">
+              <GroupExpressions>
+                <GroupExpression>=Fields!Nama.Value</GroupExpression>
+              </GroupExpressions>
+              <PageBreakAtEnd>true</PageBreakAtEnd>
+            </Grouping>
+          </List>
+        </ReportItems>
+        <Top>0.75in</Top>
+        <Width>21.90476cm</Width>
+        <Style>
+          <Color>SlateGray</Color>
+          <FontFamily>Tahoma</FontFamily>
+          <FontSize>14pt</FontSize>
+        </Style>
+        <Grouping Name="list1_NIK">
+          <GroupExpressions>
+            <GroupExpression>=Fields!NIK.Value</GroupExpression>
+          </GroupExpressions>
+          <PageBreakAtEnd>true</PageBreakAtEnd>
+        </Grouping>
+        <Height>3.80952cm</Height>
+      </List>
+    </ReportItems>
+    <Height>2.365in</Height>
+  </Body>
+  <Language>en-US</Language>
+  <TopMargin>1in</TopMargin>
+</Report>
